@@ -494,6 +494,38 @@ Additional optional FastAPI dependencies:
 * <a href="https://github.com/ijl/orjson" target="_blank"><code>orjson</code></a> - Required if you want to use `ORJSONResponse`.
 * <a href="https://github.com/esnme/ultrajson" target="_blank"><code>ujson</code></a> - Required if you want to use `UJSONResponse`.
 
+## Rust Project
+
+### Building the Rust Project
+
+To build the Rust project, navigate to the `cargo` directory and run the following command:
+
+```sh
+cargo build --release
+```
+
+This will compile the Rust code and generate the build artifacts in the `target/release` directory.
+
+### Running the Rust Project
+
+To run the Rust project, use the following command:
+
+```sh
+cargo run
+```
+
+This will execute the Rust code and run the project.
+
+### Rust Dependencies
+
+The Rust project uses the following dependencies:
+
+- `fastapi` version `0.68.0`
+- `pyo3` version `0.14.1` with the `extension-module` feature
+- `maturin` version `0.10.6`
+
+These dependencies are specified in the `Cargo.toml` file located in the `cargo` directory. 
+
 ## License
 
 This project is licensed under the terms of the MIT license.
