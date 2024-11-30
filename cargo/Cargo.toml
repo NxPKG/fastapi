@@ -3,10 +3,7 @@ name = "fastapi"
 version = "0.1.0"
 authors = ["Md Sulaiman <dev.sulaiman@icloud.com>"]
 edition = "2018"
+description = "FastAPI framework, high performance, easy to learn, fast to code, ready for production"
+license = "MIT"
 
 [dependencies]
-pyo3 = { version = "0.16", features = ["extension-module"] }
-
-[build-dependencies]
-maturin = "0.14.5"
-pyo3-build-config = "0.16"
