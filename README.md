@@ -526,6 +526,100 @@ The Rust project uses the following dependencies:
 
 These dependencies are specified in the `Cargo.toml` file located in the `cargo` directory. 
 
+## Embedding Python Code in Rust Projects
+
+To embed Python code in Rust projects, you can use the `pyo3` crate. Here's an example of how to call a Python function from Rust:
+
+```rust
+use pyo3::prelude::*;
+use pyo3::types::IntoPyDict;
+
+fn main() {
+    // Initialize the Python interpreter
+    Python::with_gil(|py| {
+        // Import the Python module
+        let sys = py.import("sys").expect("Failed to import sys module");
+
+        // Call a Python function
+        let version: String = sys.get("version").expect("Failed to get version").extract().expect("Failed to extract version");
+        println!("Python version: {}", version);
+
+        // Execute a Python script
+        let locals = [("os", py.import("os").expect("Failed to import os module"))].into_py_dict(py);
+        py.run("print(os.getcwd())", None, Some(&locals)).expect("Failed to execute Python script");
+    });
+}
+```
+
+### Creating Python Bindings for Rust Libraries
+
+To create Python bindings for Rust libraries, you can use the `pyo3` and `maturin` crates. Here's an example of how to create a Python module in Rust:
+
+1. Add the following dependencies to your `Cargo.toml` file:
+
+```toml
+[dependencies]
+pyo3 = { version = "0.14.1", features = ["extension-module"] }
+maturin = "0.10.6"
+```
+
+2. Create a `lib.rs` file in the `src` directory with the following content:
+
+```rust
+use pyo3::prelude::*;
+
+#[pyfunction]
+fn sum_as_string(a: i64, b: i64) -> PyResult<String> {
+    Ok((a + b).to_string())
+}
+
+#[pymodule]
+fn rust_module(py: Python, m: &PyModule) -> PyResult<()> {
+    m.add_function(wrap_pyfunction!(sum_as_string, m)?)?;
+    Ok(())
+}
+```
+
+3. Build the Python module using `maturin`:
+
+```sh
+maturin develop
+```
+
+This will compile the Rust code and create a Python module that can be imported and used in Python code.
+
+### Distributing Hybrid Projects via Cargo or PyPI
+
+To distribute hybrid Rust-Python projects, you can use `maturin` to build and publish the project to PyPI. Here's an example of how to do it:
+
+1. Create a `pyproject.toml` file in the root directory with the following content:
+
+```toml
+[build-system]
+requires = ["maturin"]
+build-backend = "maturin"
+
+[project]
+name = "rust_module"
+version = "0.1.0"
+authors = ["Your Name <you@example.com>"]
+description = "A Rust-Python hybrid project"
+```
+
+2. Build the project using `maturin`:
+
+```sh
+maturin build
+```
+
+3. Publish the project to PyPI:
+
+```sh
+maturin publish
+```
+
+This will build the project and publish it to PyPI, making it available for installation using `pip`.
+
 ## License
 
 This project is licensed under the terms of the MIT license.
