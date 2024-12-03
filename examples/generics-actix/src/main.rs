@@ -6,12 +6,12 @@ use actix_web::{
     web::{Json, Query},
     App, HttpServer, Responder, Result,
 };
-use serde::{Deserialize, Serialize};
 use fastapi::{
     openapi::schema::{Object, ObjectBuilder},
     IntoParams, OpenApi, PartialSchema, ToSchema,
 };
 use fastapi_swagger_ui::SwaggerUi;
+use serde::{Deserialize, Serialize};
 
 fn get_coord_schema<T: PartialSchema>() -> Object {
     ObjectBuilder::new()

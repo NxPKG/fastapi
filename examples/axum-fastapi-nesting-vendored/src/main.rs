@@ -1,12 +1,12 @@
 use std::net::{Ipv4Addr, SocketAddr};
 
 use axum::{routing, Router};
-use std::io::Error;
-use tokio::net::TcpListener;
 use fastapi::openapi::path::Operation;
 use fastapi::openapi::{OpenApiBuilder, PathItem, PathsBuilder};
 use fastapi::OpenApi;
 use fastapi_swagger_ui::SwaggerUi;
+use std::io::Error;
+use tokio::net::TcpListener;
 
 #[tokio::main]
 async fn main() -> Result<(), Error> {

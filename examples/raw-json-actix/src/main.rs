@@ -3,9 +3,9 @@ use std::{error::Error, net::Ipv4Addr};
 use actix_web::{
     middleware::Logger, patch, web::Json, App, HttpResponse, HttpServer, Responder, Result,
 };
-use serde_json::Value;
 use fastapi::OpenApi;
 use fastapi_swagger_ui::SwaggerUi;
+use serde_json::Value;
 
 #[fastapi::path(
     request_body = Value,

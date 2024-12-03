@@ -1,11 +1,11 @@
 use std::io;
 use std::net::Ipv4Addr;
 
-use tokio::net::TcpListener;
 use fastapi::OpenApi;
 use fastapi_axum::router::OpenApiRouter;
 use fastapi_axum::routes;
 use fastapi_swagger_ui::SwaggerUi;
+use tokio::net::TcpListener;
 
 const CUSTOMER_TAG: &str = "customer";
 const ORDER_TAG: &str = "order";
@@ -51,10 +51,10 @@ async fn main() -> Result<(), io::Error> {
 
 mod customer {
     use axum::Json;
-    use serde::Serialize;
     use fastapi::ToSchema;
     use fastapi_axum::router::OpenApiRouter;
     use fastapi_axum::routes;
+    use serde::Serialize;
 
     /// This is the customer
     #[derive(ToSchema, Serialize)]
@@ -80,10 +80,10 @@ mod customer {
 
 mod order {
     use axum::Json;
-    use serde::{Deserialize, Serialize};
     use fastapi::ToSchema;
     use fastapi_axum::router::OpenApiRouter;
     use fastapi_axum::routes;
+    use serde::{Deserialize, Serialize};
 
     /// This is the order
     #[derive(ToSchema, Serialize)]

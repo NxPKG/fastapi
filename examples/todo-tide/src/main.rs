@@ -1,12 +1,12 @@
 use std::sync::Arc;
 
-use serde_json::json;
-use tide::{http::Mime, Redirect, Response};
 use fastapi::{
     openapi::security::{ApiKey, ApiKeyValue, SecurityScheme},
     Modify, OpenApi,
 };
 use fastapi_swagger_ui::Config;
+use serde_json::json;
+use tide::{http::Mime, Redirect, Response};
 
 use crate::todo::Store;
 
@@ -84,10 +84,10 @@ async fn serve_swagger(request: tide::Request<Arc<Config<'_>>>) -> tide::Result<
 mod todo {
     use std::sync::{Arc, Mutex};
 
+    use fastapi::{OpenApi, ToSchema};
     use serde::{Deserialize, Serialize};
     use serde_json::json;
     use tide::{Request, Response};
-    use fastapi::{OpenApi, ToSchema};
 
     #[derive(OpenApi)]
     #[openapi(

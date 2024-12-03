@@ -10,7 +10,6 @@ use actix_web::{
     web::Data,
     App, HttpResponse, HttpServer,
 };
-use futures::future::LocalBoxFuture;
 use fastapi::{
     openapi::security::{ApiKey, ApiKeyValue, SecurityScheme},
     Modify, OpenApi,
@@ -20,6 +19,7 @@ use fastapi_rapidoc::RapiDoc;
 use fastapi_redoc::{Redoc, Servable};
 use fastapi_scalar::{Scalar, Servable as ScalarServable};
 use fastapi_swagger_ui::SwaggerUi;
+use futures::future::LocalBoxFuture;
 
 use crate::todo::TodoStore;
 
@@ -63,7 +63,9 @@ async fn main() -> Result<(), impl Error> {
             .into_fastapi_app()
             .openapi(ApiDoc::openapi())
             .map(|app| app.wrap(Logger::default()))
-            .service(fastapi_actix_web::scope("/api/todo").configure(todo::configure(store.clone())))
+            .service(
+                fastapi_actix_web::scope("/api/todo").configure(todo::configure(store.clone())),
+            )
             .openapi_service(|api| Redoc::with_url("/redoc", api))
             .openapi_service(|api| {
                 SwaggerUi::new("/swagger-ui/{_:.*}").url("/api-docs/openapi.json", api)

@@ -5,9 +5,9 @@ use actix_web::{
     web::{Data, Json, Path, Query},
     HttpResponse, Responder,
 };
-use serde::{Deserialize, Serialize};
 use fastapi::{IntoParams, ToSchema};
 use fastapi_actix_web::service_config::ServiceConfig;
+use serde::{Deserialize, Serialize};
 
 use crate::{LogApiKey, RequireApiKey};
 
