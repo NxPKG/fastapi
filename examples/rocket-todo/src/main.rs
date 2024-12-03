@@ -1,6 +1,3 @@
-use rocket::{catch, catchers, routes, Build, Request, Rocket};
-use serde_json::json;
-use todo::RequireApiKey;
 use fastapi::{
     openapi::security::{ApiKey, ApiKeyValue, SecurityScheme},
     Modify, OpenApi,
@@ -9,6 +6,9 @@ use fastapi_rapidoc::RapiDoc;
 use fastapi_redoc::{Redoc, Servable};
 use fastapi_scalar::{Scalar, Servable as ScalarServable};
 use fastapi_swagger_ui::SwaggerUi;
+use rocket::{catch, catchers, routes, Build, Request, Rocket};
+use serde_json::json;
+use todo::RequireApiKey;
 
 use crate::todo::TodoStore;
 
@@ -77,6 +77,7 @@ async fn unauthorized(req: &Request<'_>) -> serde_json::Value {
 mod todo {
     use std::sync::{Arc, Mutex};
 
+    use fastapi::{IntoParams, OpenApi, ToSchema};
     use rocket::{
         delete, get,
         http::Status,
@@ -88,7 +89,6 @@ mod todo {
         FromForm, Request, State,
     };
     use serde::{Deserialize, Serialize};
-    use fastapi::{IntoParams, OpenApi, ToSchema};
 
     #[derive(OpenApi)]
     #[openapi(paths(get_tasks, create_todo, mark_done, delete_todo, search_todos,))]
