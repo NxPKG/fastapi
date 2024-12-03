@@ -327,11 +327,11 @@ where
             debug_assert!(path.starts_with('/'));
 
             if prefix.ends_with('/') {
-                format!("{prefix}{}", path.trim_start_matches('/')).into()
+                format!("{prefix}{}", path.trim_start_matches('/'))
             } else if path == "/" {
                 prefix.into()
             } else {
-                format!("{prefix}{path}").into()
+                format!("{prefix}{path}")
             }
         }
 

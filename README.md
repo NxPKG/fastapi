@@ -51,10 +51,7 @@ Refer to the existing [examples](./examples) to find out more.
 * Various OpenAPI visualization tools supported out of the box.
 * Rust type aliases via [`fastapi-config`](./fastapi-config/README.md).
 
-## What's up with the word play?
 
-The name comes from the words `utopic` and `api` where `uto` are the first three letters of _utopic_
-and the `ipa` is _api_ reversed. Aaand... `ipa` is also an awesome type of beer :beer:.
 
 ## Crate Features
 
@@ -121,7 +118,7 @@ Add dependency declaration to `Cargo.toml`.
 
 ```toml
 [dependencies]
-fastapi = "5"
+fastapi = "0.1.1"
 ```
 
 ## Examples
@@ -304,11 +301,6 @@ library **does not** by default embed files on debug builds. To get around this 
 1. Build your executable in `--release` mode
 
 Find `fastapi-swagger-ui` [feature flags here](https://github.com/nxpkg/fastapi/tree/master/fastapi-swagger-ui#crate-features).
-
-### Auto discover for OpenAPI schemas and paths?
-
-Currently there is no build in solution to automatically discover the OpenAPI types but for your luck there is a pretty neat crate that 
-just does this for you called [fastapiuto](https://github.com/ProbablyClem/fastapiuto).
 
 ## License
 

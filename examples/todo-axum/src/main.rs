@@ -1,7 +1,5 @@
 use std::net::{Ipv4Addr, SocketAddr};
 
-use std::io::Error;
-use tokio::net::TcpListener;
 use fastapi::{
     openapi::security::{ApiKey, ApiKeyValue, SecurityScheme},
     Modify, OpenApi,
@@ -11,6 +9,8 @@ use fastapi_rapidoc::RapiDoc;
 use fastapi_redoc::{Redoc, Servable};
 use fastapi_scalar::{Scalar, Servable as ScalarServable};
 use fastapi_swagger_ui::SwaggerUi;
+use std::io::Error;
+use tokio::net::TcpListener;
 
 const TODO_TAG: &str = "todo";
 
@@ -65,11 +65,11 @@ mod todo {
         response::IntoResponse,
         Json,
     };
+    use fastapi::{IntoParams, ToSchema};
+    use fastapi_axum::{router::OpenApiRouter, routes};
     use hyper::{HeaderMap, StatusCode};
     use serde::{Deserialize, Serialize};
     use tokio::sync::Mutex;
-    use fastapi::{IntoParams, ToSchema};
-    use fastapi_axum::{router::OpenApiRouter, routes};
 
     use crate::TODO_TAG;
 

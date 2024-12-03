@@ -54,8 +54,8 @@ mod todo {
         sync::{Arc, Mutex},
     };
 
-    use serde::{Deserialize, Serialize};
     use fastapi::{IntoParams, OpenApi, ToSchema};
+    use serde::{Deserialize, Serialize};
     use warp::{hyper::StatusCode, Filter, Rejection, Reply};
 
     #[derive(OpenApi)]
