@@ -26,7 +26,7 @@
 //!
 //! ```toml
 //! [build-dependencies]
-//! fastapi-config = "0.1"
+//! fastapi-config = "0.1.1"
 //! ```
 //!
 //! ## Examples

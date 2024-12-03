@@ -61,7 +61,7 @@ reqwest = { version = "0.12", features = [
     "rustls-tls",
 ], default-features = false, optional = true }
 url = { version = "2", optional = true }
-fastapi-swagger-ui-vendored = { version = "0.1", path = "../fastapi-swagger-ui-vendored", optional = true }
+fastapi-swagger-ui-vendored = { version = "0.1.1", path = "../fastapi-swagger-ui-vendored", optional = true }
 
 [lints.rust]
 unexpected_cfgs = { level = "warn", check-cfg = ['cfg(doc_cfg)'] }

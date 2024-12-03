@@ -11,7 +11,7 @@
 //!
 //! ```toml
 //! [dependencies]
-//! fastapi-actix-web = "0.1"
+//! fastapi-actix-web = "0.1.1"
 //! ```
 //!
 //! ## Examples

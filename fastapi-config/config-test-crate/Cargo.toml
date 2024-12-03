@@ -13,9 +13,9 @@ serde = "1"
 serde_json = "1"
 
 [build-dependencies]
-fastapi-config = { version = "0.1", path = "../../fastapi-config" }
+fastapi-config = { version = "0.1.1", path = "../../fastapi-config" }
 
 [dev-dependencies]
-fastapi-config = { version = "0.1", path = "../../fastapi-config" }
+fastapi-config = { version = "0.1.1", path = "../../fastapi-config" }
 
 [workspace]
