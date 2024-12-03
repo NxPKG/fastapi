@@ -16,7 +16,7 @@
 //!
 //! ```toml
 //! [dependencies]
-//! fastapi-axum = "0.1"
+//! fastapi-axum = "0.1.1"
 //! ```
 //!
 //! ## Examples

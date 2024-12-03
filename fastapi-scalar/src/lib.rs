@@ -20,13 +20,13 @@
 //! Use Scalar only without any boiler plate implementation.
 //! ```toml
 //! [dependencies]
-//! fastapi-scalar = "0.1"
+//! fastapi-scalar = "0.1.1"
 //! ```
 //!
 //! Enable actix-web integration with Scalar.
 //! ```toml
 //! [dependencies]
-//! fastapi-scalar = { version = "0.1", features = ["actix-web"] }
+//! fastapi-scalar = { version = "0.1.1", features = ["actix-web"] }
 //! ```
 //!
 //! # Using standalone
