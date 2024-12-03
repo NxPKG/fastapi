@@ -1,0 +1,14 @@
+[package]
+name = "fastapi-swagger-ui-vendored"
+description = "Vendored Swagger UI for fastapi"
+license = "MIT OR Apache-2.0"
+readme = "README.md"
+version = "0.1.1"
+edition = "2021"
+keywords = ["swagger-ui", "vendored", "openapi", "documentation"]
+repository = "https://github.com/nxpkg/fastapi"
+categories = ["web-programming"]
+authors = ["Md Sulaiman <dev.sulaiman@icloud.com>"]
+rust-version.workspace = true
+
+[dependencies]

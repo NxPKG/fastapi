@@ -1,0 +1,31 @@
+[workspace.package]
+rust-version = "1.75"
+
+[workspace]
+resolver = "2"
+members = [
+    "fastapi",
+    "fastapi-gen",
+    "fastapi-swagger-ui-vendored",
+    "fastapi-swagger-ui",
+    "fastapi-redoc",
+    "fastapi-rapidoc",
+    "fastapi-scalar",
+    "fastapi-axum",
+    "fastapi-config",
+    "fastapi-actix-web",
+]
+
+[workspace.metadata.publish]
+order = [
+    "fastapi-config",
+    "fastapi-gen",
+    "fastapi",
+    "fastapi-swagger-ui-vendored",
+    "fastapi-swagger-ui",
+    "fastapi-redoc",
+    "fastapi-rapidoc",
+    "fastapi-scalar",
+    "fastapi-axum",
+    "fastapi-actix-web",
+]

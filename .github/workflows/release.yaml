@@ -1,0 +1,23 @@
+name: Publish release
+
+on:
+  release:
+    types: [published]
+
+env:
+  CARGO_TERM_COLOR: always
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+      with:
+        fetch-depth: 2
+
+    - uses: ./.github/actions/publish
+      name: Cargo publish
+      with:
+        token: ${{ secrets.CARGO_LOGIN }}
+        ref: ${{ github.ref }}

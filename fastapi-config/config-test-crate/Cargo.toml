@@ -1,0 +1,21 @@
+[package]
+name = "fastapi-config-test"
+version = "0.1.0"
+edition = "2021"
+rust-version = "1.75"
+
+[dependencies]
+fastapi = { version = "0.1.1", path = "../../fastapi", features = [
+    "debug",
+    "config",
+] }
+serde = "1"
+serde_json = "1"
+
+[build-dependencies]
+fastapi-config = { version = "0.1", path = "../../fastapi-config" }
+
+[dev-dependencies]
+fastapi-config = { version = "0.1", path = "../../fastapi-config" }
+
+[workspace]

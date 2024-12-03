@@ -1,0 +1,143 @@
+name: Fastapi build
+
+on:
+  push:
+    paths:
+      - "**.rs"
+      - "**Cargo.toml"
+  pull_request:
+    branches: [master]
+    paths:
+      - "**.rs"
+      - "**Cargo.toml"
+env:
+  CARGO_TERM_COLOR: always
+
+jobs:
+  test:
+    strategy:
+      matrix:
+        crate:
+          - fastapi
+          - fastapi-gen
+          - fastapi-swagger-ui-vendored
+          - fastapi-swagger-ui
+          - fastapi-redoc
+          - fastapi-rapidoc
+          - fastapi-scalar
+          - fastapi-axum
+          - fastapi-config
+          - fastapi-actix-web
+      fail-fast: true
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 2
+
+      - uses: actions/cache@v3
+        with:
+          path: |
+            ~/.cargo/bin/
+            ~/.cargo/registry/index/
+            ~/.cargo/registry/cache/
+            ~/.cargo/git/db/
+            target/
+          key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}
+
+      - name: Resolve changed paths
+        id: changes
+        run: |
+          if [[ $GITHUB_EVENT_NAME != "pull_request" ]]; then
+            echo "changes=true" >> $GITHUB_OUTPUT
+            exit 0
+          fi
+          changes=false
+          while read -r change; do
+            if [[ "$change" == "fastapi-gen" && "${{ matrix.crate }}" == "fastapi-gen" && $changes == false ]]; then
+              changes=true
+            elif [[ "$change" == "fastapi-swagger-ui-vendored" && "${{ matrix.crate }}" == "fastapi-swagger-ui-vendored" && $changes == false ]]; then
+              changes=true
+            elif [[ "$change" == "fastapi-swagger-ui" && "${{ matrix.crate }}" == "fastapi-swagger-ui" && $changes == false ]]; then
+              changes=true
+            elif [[ "$change" == "fastapi" && "${{ matrix.crate }}" == "fastapi" && $changes == false ]]; then
+              changes=true
+            elif [[ "$change" == "fastapi-redoc" && "${{ matrix.crate }}" == "fastapi-redoc" && $changes == false ]]; then
+              changes=true
+            elif [[ "$change" == "fastapi-rapidoc" && "${{ matrix.crate }}" == "fastapi-rapidoc" && $changes == false ]]; then
+              changes=true
+            elif [[ "$change" == "fastapi-scalar" && "${{ matrix.crate }}" == "fastapi-scalar" && $changes == false ]]; then
+              changes=true
+            elif [[ "$change" == "fastapi-axum" && "${{ matrix.crate }}" == "fastapi-axum" && $changes == false ]]; then
+              changes=true
+            elif [[ "$change" == "fastapi-config" && "${{ matrix.crate }}" == "fastapi-config" && $changes == false ]]; then
+              changes=true
+            elif [[ "$change" == "fastapi-actix-web" && "${{ matrix.crate }}" == "fastapi-actix-web" && $changes == false ]]; then
+              changes=true
+            fi
+          done < <(git diff --name-only ${{ github.sha }}~ ${{ github.sha }} | grep .rs | awk -F \/ '{print $1}')
+          echo "${{ matrix.crate }} changes: $changes"
+          echo "changes=$changes" >> $GITHUB_OUTPUT
+
+      - name: Check format
+        run: |
+          if [[ ${{ steps.changes.outputs.changes }} == true ]]; then
+            cargo fmt --check --package ${{ matrix.crate }}
+          fi
+
+      - name: Check clippy
+        run: |
+          if [[ ${{ steps.changes.outputs.changes }} == true ]]; then
+            cargo clippy --quiet --package ${{ matrix.crate }}
+          fi
+
+      - name: Run tests
+        run: |
+          if [[ ${{ steps.changes.outputs.changes }} == true ]]; then
+            ./scripts/test.sh ${{ matrix.crate }}
+          fi
+
+  check-typos:
+    name: typos
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: taiki-e/install-action@v2
+        with:
+          tool: typos
+      - run: typos
+
+  test-examples-compile:
+    name: "test (examples)"
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 2
+
+      - name: Install stable Rust
+        uses: dtolnay/rust-toolchain@master
+        with:
+          toolchain: stable
+          components: clippy, rustfmt
+
+      - name: Install nightly Rust
+        uses: dtolnay/rust-toolchain@master
+        with:
+          toolchain: nightly
+          components: clippy, rustfmt
+
+      - uses: actions/cache@v3
+        with:
+          path: |
+            ~/.cargo/bin/
+            ~/.cargo/registry/index/
+            ~/.cargo/registry/cache/
+            ~/.cargo/git/db/
+            examples/**/target/
+          key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}_examples
+
+      - name: Test that examples compile
+        run: |
+          ./scripts/validate-examples.sh

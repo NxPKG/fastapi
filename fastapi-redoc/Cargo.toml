@@ -1,0 +1,32 @@
+[package]
+name = "fastapi-redoc"
+description = "Redoc for fastapi"
+version = "0.1.1"
+edition = "2021"
+license = "MIT OR Apache-2.0"
+readme = "README.md"
+keywords = ["redoc", "openapi", "documentation"]
+repository = "https://github.com/nxpkg/fastapi"
+categories = ["web-programming"]
+authors = ["Md Sulaiman <dev.sulaiman@icloud.com>"]
+rust-version.workspace = true
+
+[package.metadata.docs.rs]
+features = ["actix-web", "axum", "rocket"]
+rustdoc-args = ["--cfg", "doc_cfg"]
+
+[dependencies]
+serde = { version = "1.0", features = ["derive"] }
+serde_json = { version = "1.0" }
+fastapi = { version = "0.1.1", path = "../fastapi", default-features = false, features = [
+    "macros",
+] }
+actix-web = { version = "4", optional = true }
+rocket = { version = "0.5", features = ["json"], optional = true }
+axum = { version = "0.7", default-features = false, optional = true }
+
+[dev-dependencies]
+fastapi-redoc = { path = ".", features = ["actix-web", "axum", "rocket"] }
+
+[lints.rust]
+unexpected_cfgs = { level = "warn", check-cfg = ['cfg(doc_cfg)'] }

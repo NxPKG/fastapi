@@ -1,0 +1,22 @@
+[package]
+name = "generics-actix"
+description = "Simple actix-web using non-supported types and generics with fastapi and Swagger"
+version = "0.1.0"
+edition = "2021"
+license = "MIT"
+authors = [
+  "Example <example@example.com>"
+]
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+actix-web = "4"
+env_logger = "0.10.0"
+geo-types = { version = "0.7", features = ["serde"] }
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+fastapi = { path = "../../fastapi", features = ["actix_extras", "non_strict_integers"] }
+fastapi-swagger-ui = { path = "../../fastapi-swagger-ui", features = ["actix-web"] }
+
+[workspace]

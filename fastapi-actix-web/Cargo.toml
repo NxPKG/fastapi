@@ -1,0 +1,33 @@
+[package]
+name = "fastapi-actix-web"
+description = "Fastapi's actix-web bindings for seamless integration of the two"
+version = "0.1.2"
+edition = "2021"
+license = "MIT OR Apache-2.0"
+readme = "README.md"
+keywords = ["fastapi", "actix-web", "bindings"]
+repository = "https://github.com/nxpkg/fastapi"
+categories = ["web-programming"]
+authors = ["Md Sulaiman <dev.sulaiman@icloud.com>"]
+rust-version.workspace = true
+
+[dependencies]
+fastapi = { path = "../fastapi", version = "0" }
+actix-web = { version = "4", default-features = false }
+actix-service = "2"
+
+[dev-dependencies]
+fastapi = { path = "../fastapi", version = "0", features = [
+    "actix_extras",
+    "macros",
+    "debug",
+] }
+actix-web = { version = "4", default-features = false, features = ["macros"] }
+serde = "1"
+
+[package.metadata.docs.rs]
+features = []
+rustdoc-args = ["--cfg", "doc_cfg"]
+
+[lints.rust]
+unexpected_cfgs = { level = "warn", check-cfg = ['cfg(doc_cfg)'] }

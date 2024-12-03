@@ -1,0 +1,76 @@
+[package]
+name = "fastapi"
+description = "Compile time generated OpenAPI documentation for Rust"
+version = "0.1.1"
+edition = "2021"
+license = "MIT OR Apache-2.0"
+readme = "README.md"
+keywords = [
+    "rest-api",
+    "openapi",
+    "auto-generate",
+    "documentation",
+    "compile-time",
+]
+# documentation = ""
+# homepage = ""
+repository = "https://github.com/nxpkg/fastapi"
+categories = ["web-programming"]
+authors = ["Md Sulaiman <dev.sulaiman@icloud.com>"]
+rust-version.workspace = true
+
+[features]
+# See README.md for list and explanations of features
+default = ["macros"]
+debug = ["fastapi-gen?/debug"]
+actix_extras = ["fastapi-gen?/actix_extras"]
+rocket_extras = ["fastapi-gen?/rocket_extras"]
+axum_extras = ["fastapi-gen?/axum_extras"]
+chrono = ["fastapi-gen?/chrono"]
+decimal = ["fastapi-gen?/decimal"]
+decimal_float = ["fastapi-gen?/decimal_float"]
+non_strict_integers = ["fastapi-gen?/non_strict_integers"]
+yaml = ["serde_yaml", "fastapi-gen?/yaml"]
+uuid = ["fastapi-gen?/uuid"]
+ulid = ["fastapi-gen?/ulid"]
+url = ["fastapi-gen?/url"]
+time = ["fastapi-gen?/time"]
+smallvec = ["fastapi-gen?/smallvec"]
+indexmap = ["fastapi-gen?/indexmap"]
+openapi_extensions = []
+repr = ["fastapi-gen?/repr"]
+preserve_order = []
+preserve_path_order = []
+rc_schema = ["fastapi-gen?/rc_schema"]
+macros = ["dep:fastapi-gen"]
+config = ["fastapi-gen?/config"]
+
+# EXPERIEMENTAL! use with cauntion
+auto_into_responses = ["fastapi-gen?/auto_into_responses"]
+
+[dependencies]
+serde = { version = "1.0", features = ["derive"] }
+serde_json = { version = "1.0" }
+serde_yaml = { version = "0.9", optional = true }
+fastapi-gen = { version = "0.1.1", path = "../fastapi-gen", optional = true }
+indexmap = { version = "2", features = ["serde"] }
+
+[dev-dependencies]
+assert-json-diff = "2"
+fastapi = { path = ".", features = ["debug"] }
+
+[package.metadata.docs.rs]
+features = [
+    "actix_extras",
+    "non_strict_integers",
+    "openapi_extensions",
+    "uuid",
+    "ulid",
+    "url",
+    "yaml",
+    "macros",
+]
+rustdoc-args = ["--cfg", "doc_cfg"]
+
+[lints.rust]
+unexpected_cfgs = { level = "warn", check-cfg = ['cfg(doc_cfg)'] }

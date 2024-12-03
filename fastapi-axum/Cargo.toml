@@ -1,0 +1,36 @@
+[package]
+name = "fastapi-axum"
+description = "Fastapi's axum bindings for seamless integration for the two"
+version = "0.1.2"
+edition = "2021"
+license = "MIT OR Apache-2.0"
+readme = "README.md"
+keywords = ["fastapi", "axum", "bindings"]
+repository = "https://github.com/nxpkg/fastapi"
+categories = ["web-programming"]
+authors = ["Md Sulaiman <dev.sulaiman@icloud.com>"]
+rust-version.workspace = true
+
+[features]
+debug = []
+
+[dependencies]
+axum = { version = "0.7", default-features = false }
+fastapi = { version = "0.1.1", path = "../fastapi", default-features = false, features = [
+    "macros",
+] }
+tower-service = "0.3"
+tower-layer = "0.3.2"
+paste = "1.0"
+
+[dev-dependencies]
+fastapi = { path = "../fastapi", features = ["debug"] }
+axum = { version = "0.7", default-features = false, features = ["json"] }
+serde = "1"
+
+[package.metadata.docs.rs]
+features = []
+rustdoc-args = ["--cfg", "doc_cfg"]
+
+[lints.rust]
+unexpected_cfgs = { level = "warn", check-cfg = ['cfg(doc_cfg)'] }
